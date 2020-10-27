@@ -1,13 +1,13 @@
-/* 
+/*
 * Nombre: transporte.cpp (main)
 * Estructuras de datos: primera entrega
 * Autores: Carlos Andres Erazo Garzon
 *          Nicolas Gil
 *          Andres Gomez
-* Fecha: 
-* Descripcion: El escenario es una empresa de transporte que cuenta con varias agencias 
-* que cumplen con el papel de venta de ticketes, para la primera entrega del proyecto 
-* el programa atiende con realizar la lectura de los documentos necesarios, verificacion 
+* Fecha:
+* Descripcion: El escenario es una empresa de transporte que cuenta con varias agencias
+* que cumplen con el papel de venta de ticketes, para la primera entrega del proyecto
+* el programa atiende con realizar la lectura de los documentos necesarios, verificacion
 * de disponibilidad de tiquetes, cotizacion y venta de tiquetes, asi como tambien reportes
 * entre otros.
 */
@@ -28,11 +28,11 @@ int main (int argc, char *argv[]){
     string comando;
 
     do{
-        borrarPantalla();
+        //borrarPantalla();
         cout << "\n\nPROGRAMA DE TRANSPORTE\n\n";
         cout << "Introduzca un comando: " << endl;
         cout << "$ ";
-        cin >> comando; 
+        cin >> comando;
 
         if(comando == "ayuda"){
             ayuda();
@@ -45,7 +45,7 @@ int main (int argc, char *argv[]){
     }while(log == 0);
 
     while(true){
-        borrarPantalla();
+        //borrarPantalla();
         cout << "PROGRAMA DE TRANSPORTE\n\n";
         cout << "Ingrese un commando: "<<endl;
         cout << "$ ";
@@ -54,22 +54,29 @@ int main (int argc, char *argv[]){
         if(comando == "ayuda"){
             ayuda();
         }
-        if(comando.find("login") != string::npos){
+        else if(comando.find("login") != string::npos){
             cout<<"Ya se encuentra registrado"<<endl;
         }
-        if(comando.find("logout") != string::npos){
+        else if(comando.find("logout") != string::npos){
             return 0;
         }
-        if(comando.find("listar_buses") != string::npos){
+        else if(comando.find("listar_buses") != string::npos){
             listar_buses();
         }
-        if(comando.find("listar_rutas") != string::npos){
+        else if(comando.find("listar_rutas") != string::npos){
             listar_rutas();
         }
-        if(comando.find("listar_viajes") != string::npos){
+        else if(comando.find("listar_viajes") != string::npos){
             listar_viajes();
+        }
+        else if(comando.find("reporte_ventas") != string::npos){
+            reporte_ventas(comando);
+        }
+        else{
+            cout<<"Comando no valido verifique e intente nuevamente"<<endl;
+            cout<<endl;
         }
 
     }
-    
+
 }
