@@ -253,15 +253,19 @@ void listar_viajes(){
 
 void reporte_ventas(string comando)
 {
-    string str5="reporte_ventas[fecha inicial][fecha final]";
+    string s1,s2,s3;
     size_t inicio, fin;
     cout<<"en progreso"<<comando<<endl;
 
-  inicio = str5.find_first_of('[');
-  s1=str5.substr(inicio);
+  inicio =comando.find_first_of('[');
+  s1=comando.substr(inicio+1);
   inicio = s1.find_first_of(']');
-  s2=s1.substr(inicio+1);
+  s2=s1.substr(0,inicio+2);
   s1=s1.substr(0,inicio+1);
+
+  cout<<"s1: "<<s1<<endl;
+  cout<<"s2: "<<s1<<endl;
+
 }
 
 void listar_b(){
