@@ -45,6 +45,9 @@ void ayuda(){
    cin >> opc;
 
 }
+
+// COMPONENTE I
+
 int login(string comando){
 
   Agency aux;
@@ -260,6 +263,17 @@ void listar_viajes(){
 }
 
 
+// COMPONENTE II
+
+void disponibilidad(string comando) {
+  cout << "En proceso ..." << endl;
+  pausarPantalla();
+}
+void reserva(string comando) {
+  cout << "En proceso ..." << endl;
+  pausarPantalla();
+}
+
 void reporte_ventas(string comando)
 {
     string s1,s2,s3;
@@ -332,8 +346,31 @@ void listar_b(){
 
 }
 
+void cancelar(string comando) {
+  cout << "En proceso ..." << endl;
+  pausarPantalla();
+}
+void cambiar(string comando) {
+  cout << "En proceso ..." << endl;
+  pausarPantalla();
+}
 
+// COMPONENTE III
 
+void recomendar(string comando){
+    cout << "En proceso ..."<<endl;
+    pausarPantalla();
+}
+void comprimir(string comando) {
+  cout << "En proceso ..." << endl;
+  pausarPantalla();
+}
+void descomprimir(string comando) {
+  cout << "En proceso ..." << endl;
+  pausarPantalla();
+}
+
+// UTILIDADES
 
 void borrarPantalla(){
    system("clear");

@@ -29,7 +29,6 @@ int login(string comando);
 void listar_buses();
 void listar_rutas();
 void listar_viajes();
-void borrarPantalla();
 
 //COMPONENTE II
 
@@ -44,6 +43,10 @@ void cambiar(string comando);
 void recomendar(string comando);
 void comprimir(string comando);
 void descomprimir(string comando);
+
+//UTILIDADES
+
+void borrarPantalla();
 
 #include "lib.hxx"
 #endif
