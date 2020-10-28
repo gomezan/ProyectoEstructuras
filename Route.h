@@ -33,7 +33,7 @@ public:
      * Description: Builder
      * */
 
-    Route(string codeRoute, int day, string cityOrg, string cityDst, int depTime, double kmCity);
+    Route(string codeRoute, string day, string cityOrg, string cityDst, int depTime, double kmCity);
     
     /**
      * Name: Route.
