@@ -23,8 +23,6 @@ using namespace std;
 #include <readline/history.h>
 #include <readline/readline.h>
 
-int log = 0;
-
 vector<string> vocabulory{
     "ayuda",
     // COMPONENTE I
@@ -67,13 +65,14 @@ int main(int argc, char **argv) {
   if (argc > 1 && string(argv[1]) == "-d") {
     rl_bind_key('\t', rl_insert);
   }
+  int log = 0;
   borrarPantalla();
   rl_attempted_completion_function = command_completion;
 
   char *buf;
   string cmd;
 
-  while ((buf = readline("PROGRAMA DE TRANSPORTE \n\nIntroduzca un comando:\n$ ")) != nullptr) {
+  while ((buf = readline("|| PROGRAMA DE TRANSPORTE || \n\nIntroduzca un comando:\n$ ")) != nullptr) {
     borrarPantalla();
 
     cmd = string(buf);
@@ -104,7 +103,7 @@ int main(int argc, char **argv) {
           pausarPantalla();
         } else {
           if (cmd.find("logout") != std::string::npos) {
-            cout << "Gracias por usar el programa de transporte." << endl;
+            cout << "Gracias por usar el || PROGRAMA DE TRANSPORTE ||." << endl;
             return 0;
           }
           if (cmd.find("listar_buses") != std::string::npos) {
@@ -152,6 +151,7 @@ int main(int argc, char **argv) {
 
     } else {
       cout << "Comando no registrado." << std::endl;
+      pausarPantalla();
     }
   }
 

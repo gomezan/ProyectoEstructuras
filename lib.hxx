@@ -1,257 +1,263 @@
 /**
-* Name: Agency.hxx
-* Data structures: First delivery
-* Authors: Carlos Andres Erazo Garzon
-*          Nicolas Gil
-*          Andres Gomez
-* Date:
-* Description:
-* */
+ * Name: Agency.hxx
+ * Data structures: First delivery
+ * Authors: Carlos Andres Erazo Garzon
+ *          Nicolas Gil
+ *          Andres Gomez
+ * Date:
+ * Description:
+ * */
 
 #include "lib.h"
 #define CHUNK 200
 #define DATA 10
 
-void ayuda(){
-   
-   // COMPONENTE I
+void ayuda() {
 
-   cout << "\nComandos disponibles:\n"<<endl;
-   cout << "\t Login<id_agencia> \n\t\t"
-        << "Este comando pregunta al usuario por una contraseña \n\t\t"
-        << "para el identificador de la agencia dado en el comando, \n\t\t"
-        << "y activa la sesión si la contraseña es igual a la guardada \n\t\t"
-        << "en el registro correspondiente para la agencia dada, en caso \n\t\t"
-        << "contrario muestra un mensaje de error." << endl;
-   cout << "\t logout \n\t\t"
-        << "Este comando termina la sesión activa de la agencia y \n\t\t"
-        << "vuelve a la consola o terminal del sistema." << endl;
-   cout << "\t listar_buses \n\t\t"
-        << "Imprime, con una visualización agradable, los registros de \n\t\t"
-        << "los buses" << endl;
-   cout << "\t listar_rutas \n\t\t"
-        << " Imprime, con una visualización agradable, los registros de \n\t\t"
-        << "las rutas" << endl;
-   cout << "\t listar_viajes \n\t\t"
-        << "Imprime, con una visualización agradable, los registros de \n\t\t"
-        << "los viajes" << endl;
+  // COMPONENTE I
 
-    //COMPONENTE II
+  cout << "\nComandos disponibles:\n" << endl;
+  cout << "\t Login<id_agencia> \n\t\t"
+       << "Este comando pregunta al usuario por una contraseña \n\t\t"
+       << "para el identificador de la agencia dado en el comando, \n\t\t"
+       << "y activa la sesión si la contraseña es igual a la guardada \n\t\t"
+       << "en el registro correspondiente para la agencia dada, en caso \n\t\t"
+       << "contrario muestra un mensaje de error." << endl;
+  cout << "\t logout \n\t\t"
+       << "Este comando termina la sesión activa de la agencia y \n\t\t"
+       << "vuelve a la consola o terminal del sistema." << endl;
+  cout << "\t listar_buses \n\t\t"
+       << "Imprime, con una visualización agradable, los registros de \n\t\t"
+       << "los buses" << endl;
+  cout << "\t listar_rutas \n\t\t"
+       << " Imprime, con una visualización agradable, los registros de \n\t\t"
+       << "las rutas" << endl;
+  cout << "\t listar_viajes \n\t\t"
+       << "Imprime, con una visualización agradable, los registros de \n\t\t"
+       << "los viajes" << endl;
 
-    //COMPONENTE III
+  // COMPONENTE II
 
-   pausarPantalla();
+  // COMPONENTE III
 
+  pausarPantalla();
 }
 
 // COMPONENTE I
 
-int login(string comando){
+int login(string comando) {
 
   Agency aux;
-  char * buffer = (char*)malloc(DATA*sizeof(char));
-  char * user = (char*)malloc(DATA*sizeof(char));
-  char * contrasena = (char*)malloc(DATA*sizeof(char));
-  strcpy(buffer,comando.c_str());
-    
-  user = strtok(buffer," ");
+  char *buffer = (char *)malloc(DATA * sizeof(char));
+  char *user = (char *)malloc(DATA * sizeof(char));
+  char *contrasena = (char *)malloc(DATA * sizeof(char));
+  strcpy(buffer, comando.c_str());
+
+  user = strtok(buffer, " ");
   user = strtok(NULL, "");
 
-    cout << endl;
-  printf("||%10s%5s||\n", "LOGIN", "");
+  cout << "|| PROGRAMA DE TRANSPORTE || \n"<<endl;
+      printf("||%5s %s %5s||\n", "", "LOGIN", "");
   cout << endl;
-  cout << "Usuario ingresado: "<< user << endl;
 
-  cout<< "Ingrese la contraseña: \n$ ";
+  cout << "Usuario ingresado: " << user << endl;
+
+  cout << "Ingrese la contraseña: \n$ ";
   cin >> contrasena;
 
-  FILE *archivo = fopen("contrasegnas.dat","r");
+  FILE *archivo = fopen("contrasegnas.dat", "r");
 
-  if(archivo != NULL){
+  if (archivo != NULL) {
 
+    char *linea = (char *)malloc(CHUNK * sizeof(char));
+    char *nombre = (char *)malloc(DATA * sizeof(char));
+    char *contra = (char *)malloc(DATA * sizeof(char));
+    while (fgets(linea, CHUNK, archivo)) {
 
-    char * linea = (char*)malloc(CHUNK*sizeof(char));
-    char * nombre = (char*)malloc(DATA*sizeof(char));
-    char * contra = (char*)malloc(DATA*sizeof(char));
-    while(fgets(linea,CHUNK,archivo)){
-
-      nombre = strtok(linea,";");
-      contra = strtok (NULL,"\n");
-      if(strcmp(nombre,user) == 0){
-        if(strcmp(contra,contrasena) == 0){
-           cout << endl<< "Bienvenido al sistema" << endl;
-           pausarPantalla();
-           return 1;
+      nombre = strtok(linea, ";");
+      contra = strtok(NULL, "\n");
+      if (strcmp(nombre, user) == 0) {
+        if (strcmp(contra, contrasena) == 0) {
+          cout << endl << "Bienvenido al sistema" << endl;
+          pausarPantalla();
+          return 1;
         }
       }
     }
-    cout << "Error de autenticación, no es posible ingresar al sistema, inténtelo otra vez" << endl;
+    cout << "Error de autenticación, no es posible ingresar al sistema, "
+            "inténtelo otra vez"
+         << endl;
     pausarPantalla();
- }
+  }
   return 0;
 }
 
-void listar_buses(){
-   int cuenta = 0;
-   string opc;
-   Bus aux;
-   borrarPantalla();
-   cout << endl;
-   printf("||%10s%5s||\n", "LOGIN", "");
-   cout << endl;
+void listar_buses() {
+  int cuenta = 0;
+  string opc;
+  Bus aux;
+  borrarPantalla();
+  cout << "|| PROGRAMA DE TRANSPORTE || \n" << endl;
+  printf("||%5s %s %5s||\n", "", "LISTAR BUSES", "");
+  cout << endl;
 
-   FILE *archivo = fopen("buses.dat", "r");
+  FILE *archivo = fopen("buses.dat", "r");
 
+  if (archivo != NULL) {
+    char *linea = (char *)malloc(CHUNK);
 
-   if(archivo != NULL){
-      char *linea = (char *)malloc(CHUNK);
+    while (fgets(linea, CHUNK, archivo)) {
 
-      while (fgets(linea, CHUNK, archivo)){
+      cuenta++;
 
-         cuenta ++;
-
-         char * valor = strtok(linea, ";");
-         aux.setcodeBus(valor);
-         valor = strtok(NULL, ";");
-         if(!strcmp(valor, "Corriente")){
-            aux.setType('c');
-         }else{
-            aux.setType('s');
-         }
-         valor = strtok(NULL, ";");
-         aux.setChairs(atoi(valor));
-         cout << cuenta << ". ";
-         aux.print();
-
-         if(cuenta % 20 == 0){
-            do{
-               cout << "\nSe han impreso 20 registros" << endl;
-               cout << "Para continuar ingrese \'s\', para salir \'n\' ..."<<endl;
-               cin >> opc;
-            }while(opc != "s" && opc != "n");
-            if(opc == "n"){
-               break;
-            }
-            borrarPantalla();
-            cout<<"\t\t\t\t\tLISTA DE BUSES\n"<<endl;
-         }
+      char *valor = strtok(linea, ";");
+      aux.setcodeBus(valor);
+      valor = strtok(NULL, ";");
+      if (!strcmp(valor, "Corriente")) {
+        aux.setType('c');
+      } else {
+        aux.setType('s');
       }
+      valor = strtok(NULL, ";");
+      aux.setChairs(atoi(valor));
+      cout << cuenta << ". ";
+      aux.print();
 
-   }else{
-      perror("No se pudo abrir el archivo");
-   }
-   cout << "\nSe ha mostrado la lista con exito"<<endl;
-   pausarPantalla();
+      if (cuenta % 20 == 0) {
+        do {
+          cout << "\nSe han impreso 20 registros" << endl;
+          cout << "Para continuar ingrese \'s\', para salir \'n\' ..." << endl;
+          cin >> opc;
+        } while (opc != "s" && opc != "n");
+        if (opc == "n") {
+          break;
+        }
+        borrarPantalla();
+        cout << "|| PROGRAMA DE TRANSPORTE || \n" << endl;
+        printf("||%5s %s %5s||\n", "", "LISTAR BUSES", "");
+        cout << endl;
+      }
+    }
 
+  } else {
+    perror("No se pudo abrir el archivo");
+  }
+  cout << "\nSe ha mostrado la lista con exito" << endl;
+  pausarPantalla();
 }
 
+void listar_rutas() {
+  int cuenta = 0;
+  string opc;
+  Route aux;
+  borrarPantalla();
 
-void listar_rutas(){
-   int cuenta = 0;
-   string opc;
-   Route aux;
-   borrarPantalla();
-   cout<<"\t\t\t\t\tLISTA DE RUTAS\n"<<endl;
+  cout << "|| PROGRAMA DE TRANSPORTE || \n" << endl;
+  printf("||%5s %s %5s||\n", "", "LISTAR RUTAS", "");
+  cout << endl;
 
-   FILE *archivo = fopen("rutas.dat", "r");
+  FILE *archivo = fopen("rutas.dat", "r");
 
-   if(archivo != NULL){
+  if (archivo != NULL) {
 
-      char *linea = (char *)malloc(CHUNK);
+    char *linea = (char *)malloc(CHUNK);
 
-      while (fgets(linea, CHUNK, archivo)){
+    while (fgets(linea, CHUNK, archivo)) {
 
-         cuenta ++;
+      cuenta++;
 
-         char * valor = strtok(linea, ";");
-         aux.setCodeRoute(valor);
-         valor = strtok(NULL, ";");
-         aux.setDay(valor);
-         valor = strtok(NULL, ";");
-         aux.setCityOrg(valor);
-         valor = strtok(NULL, ";");
-         aux.setCityDst(valor);
-         valor = strtok(NULL, ";");
-         aux.setDepTime(atoi(valor));
-         valor = strtok(NULL, ";");
-         aux.setKmCity(atof(valor));
-         cout << cuenta << ". ";
-         aux.print();
+      char *valor = strtok(linea, ";");
+      aux.setCodeRoute(valor);
+      valor = strtok(NULL, ";");
+      aux.setDay(valor);
+      valor = strtok(NULL, ";");
+      aux.setCityOrg(valor);
+      valor = strtok(NULL, ";");
+      aux.setCityDst(valor);
+      valor = strtok(NULL, ";");
+      aux.setDepTime(atoi(valor));
+      valor = strtok(NULL, ";");
+      aux.setKmCity(atof(valor));
+      cout << cuenta << ". ";
+      aux.print();
 
-         if(cuenta % 20 == 0){
-            do{
-               cout << "\nSe han impreso 20 registros" << endl;
-               cout << "Para continuar ingrese \'s\', para salir \'n\' ..."<<endl;
-               cin >> opc;
-            }while(opc != "s" && opc != "n");
-            if(opc == "n"){
-               break;
-            }
-            borrarPantalla();
-            cout<<"\t\t\t\t\tLISTA DE RUTAS\n"<<endl;
-         }
+      if (cuenta % 20 == 0) {
+        do {
+          cout << "\nSe han impreso 20 registros" << endl;
+          cout << "Para continuar ingrese \'s\', para salir \'n\' ..." << endl;
+          cin >> opc;
+        } while (opc != "s" && opc != "n");
+        if (opc == "n") {
+          break;
+        }
+        borrarPantalla();
+        cout << "|| PROGRAMA DE TRANSPORTE || \n" << endl;
+        printf("||%5s %s %5s||\n", "", "LISTAR RUTAS", "");
+        cout << endl;
       }
-   }else{
-      perror("No se pudo abrir el archivo");
-   }
-   cout << "\nSe ha mostrado la lista con exito"<<endl;
-   pausarPantalla();
-
+    }
+  } else {
+    perror("No se pudo abrir el archivo");
+  }
+  cout << "\nSe ha mostrado la lista con exito" << endl;
+  pausarPantalla();
 }
-void listar_viajes(){
-   int cuenta = 0;
-   string opc;
-   Travel aux;
-   borrarPantalla();
-   cout<<"\t\t\t\t\tLISTA DE VIAJES\n"<<endl;
+void listar_viajes() {
+  int cuenta = 0;
+  string opc;
+  Travel aux;
+  borrarPantalla();
+  cout << "|| PROGRAMA DE TRANSPORTE || \n" << endl;
+  printf("||%5s %s %5s||\n", "", "LISTAR VIAJES", "");
+  cout << endl;
 
-   FILE *archivo = fopen("viajes.dat", "r");
+  FILE *archivo = fopen("viajes.dat", "r");
 
-   if(archivo != NULL){
+  if (archivo != NULL) {
 
-      char *linea = (char *)malloc(CHUNK);
+    char *linea = (char *)malloc(CHUNK);
 
-      while (fgets(linea, CHUNK, archivo)){
+    while (fgets(linea, CHUNK, archivo)) {
 
-         cuenta ++;
+      cuenta++;
 
-         char * valor = strtok(linea, ";");
-         aux.setCodeRoute(valor);
-         valor = strtok(NULL, ";");
-         aux.setCodeBus(valor);
-         valor = strtok(NULL, ";");
-         aux.setCodeTravel(valor);
-         valor = strtok(NULL, ";");
-         aux.setDate(valor);
-         valor = strtok(NULL, ";");
-         aux.setDriverName(valor);
-         valor = strtok(NULL, ";");
-         aux.setChairCost(atof(valor));
+      char *valor = strtok(linea, ";");
+      aux.setCodeRoute(valor);
+      valor = strtok(NULL, ";");
+      aux.setCodeBus(valor);
+      valor = strtok(NULL, ";");
+      aux.setCodeTravel(valor);
+      valor = strtok(NULL, ";");
+      aux.setDate(valor);
+      valor = strtok(NULL, ";");
+      aux.setDriverName(valor);
+      valor = strtok(NULL, ";");
+      aux.setChairCost(atof(valor));
 
-         cout << cuenta << ". ";
-         aux.print();
+      cout << cuenta << ". ";
+      aux.print();
 
-         if(cuenta % 20 == 0){
-            do{
-               cout << "\nSe han impreso 20 registros" << endl;
-               cout << "Para continuar ingrese \'s\', para salir \'n\' ..."<<endl;
-               cin >> opc;
-            }while(opc != "s" && opc != "n");
-            if(opc == "n"){
-               break;
-            }
-            borrarPantalla();
-   cout<<"\t\t\t\t\tLISTA DE VIAJES\n"<<endl;
-         }
+      if (cuenta % 20 == 0) {
+        do {
+          cout << "\nSe han impreso 20 registros" << endl;
+          cout << "Para continuar ingrese \'s\', para salir \'n\' ..." << endl;
+          cin >> opc;
+        } while (opc != "s" && opc != "n");
+        if (opc == "n") {
+          break;
+        }
+        borrarPantalla();
+        cout << "|| PROGRAMA DE TRANSPORTE || \n" << endl;
+        printf("||%5s %s %5s||\n", "", "LISTAR VIAJES", "");
+        cout << endl;
       }
-   }else{
-      perror("No se pudo abrir el archivo");
-   }
-   cout << "\nSe ha mostrado la lista con exito"<<endl;
-   pausarPantalla();
-
+    }
+  } else {
+    perror("No se pudo abrir el archivo");
+  }
+  cout << "\nSe ha mostrado la lista con exito" << endl;
+  pausarPantalla();
 }
-
 
 // COMPONENTE II
 
@@ -264,72 +270,68 @@ void reserva(string comando) {
   pausarPantalla();
 }
 
-void reporte_ventas(string comando)
-{
-    string s1,s2,s3;
-    size_t inicio, fin;
-    cout<<"en progreso"<<comando<<endl;
+void reporte_ventas(string comando) {
+  string s1, s2, s3;
+  size_t inicio, fin;
+  cout << "en progreso" << comando << endl;
 
-  inicio =comando.find_first_of('[');
-  s1=comando.substr(inicio+1);
+  inicio = comando.find_first_of('[');
+  s1 = comando.substr(inicio + 1);
   inicio = s1.find_first_of(']');
-  s2=s1.substr(0,inicio+2);
-  s1=s1.substr(0,inicio+1);
+  s2 = s1.substr(0, inicio + 2);
+  s1 = s1.substr(0, inicio + 1);
 
-  cout<<"s1: "<<s1<<endl;
-  cout<<"s2: "<<s1<<endl;
-
+  cout << "s1: " << s1 << endl;
+  cout << "s2: " << s1 << endl;
 }
 
-void listar_b(){
-   int cuenta = 0;
-   string opc;
-   Bus aux;
-   borrarPantalla();
-   cout<<"\t\t\t\t\tLISTA DE BUSES\n"<<endl;
+void listar_b() {
+  int cuenta = 0;
+  string opc;
+  Bus aux;
+  borrarPantalla();
+  cout << "\t\t\t\t\tLISTA DE BUSES\n" << endl;
 
-   FILE *archivo = fopen("buses.dat", "r");
+  FILE *archivo = fopen("buses.dat", "r");
 
+  if (archivo != NULL) {
+    char *linea = (char *)malloc(CHUNK);
 
-   if(archivo != NULL){
-      char *linea = (char *)malloc(CHUNK);
+    while (fgets(linea, CHUNK, archivo)) {
 
-      while (fgets(linea, CHUNK, archivo)){
+      cuenta++;
 
-         cuenta ++;
-
-         char * valor = strtok(linea, ";");
-         aux.setcodeBus(valor);
-         valor = strtok(NULL, ";");
-         if(!strcmp(valor, "Corriente")){
-            aux.setType('c');
-         }else{
-            aux.setType('s');
-         }
-         valor = strtok(NULL, ";");
-         aux.setChairs(atoi(valor));
-         cout << cuenta << ". ";
-         aux.print();
-
-         if(cuenta % 20 == 0){
-            do{
-               cout << "\nSe han impreso 20 registros" << endl;
-               cout << "Para continuar ingrese \'s\', para salir \'n\' ..."<<endl;
-               cin >> opc;
-            }while(opc != "s" && opc != "n");
-            if(opc == "n"){
-               break;
-            }
-            borrarPantalla();
-            cout<<"\t\t\t\t\tLISTA DE BUSES\n"<<endl;
-         }
+      char *valor = strtok(linea, ";");
+      aux.setcodeBus(valor);
+      valor = strtok(NULL, ";");
+      if (!strcmp(valor, "Corriente")) {
+        aux.setType('c');
+      } else {
+        aux.setType('s');
       }
+      valor = strtok(NULL, ";");
+      aux.setChairs(atoi(valor));
+      cout << cuenta << ". ";
+      aux.print();
 
-   }else{
-      perror("No se pudo abrir el archivo");
-   }
-   pausarPantalla();
+      if (cuenta % 20 == 0) {
+        do {
+          cout << "\nSe han impreso 20 registros" << endl;
+          cout << "Para continuar ingrese \'s\', para salir \'n\' ..." << endl;
+          cin >> opc;
+        } while (opc != "s" && opc != "n");
+        if (opc == "n") {
+          break;
+        }
+        borrarPantalla();
+        cout << "\t\t\t\t\tLISTA DE BUSES\n" << endl;
+      }
+    }
 
+  } else {
+    perror("No se pudo abrir el archivo");
+  }
+  pausarPantalla();
 }
 
 void cancelar(string comando) {
@@ -343,9 +345,9 @@ void cambiar(string comando) {
 
 // COMPONENTE III
 
-void recomendar(string comando){
-    cout << "En proceso ..."<<endl;
-    pausarPantalla();
+void recomendar(string comando) {
+  cout << "En proceso ..." << endl;
+  pausarPantalla();
 }
 void comprimir(string comando) {
   cout << "En proceso ..." << endl;
@@ -358,12 +360,10 @@ void descomprimir(string comando) {
 
 // UTILIDADES
 
-void borrarPantalla(){
-   system("clear");
-}
+void borrarPantalla() { system("clear"); }
 
-void pausarPantalla(){
-    cout << "Presione la tecla enter para continuar ..." <<endl;
-    system("read");
-    borrarPantalla();
+void pausarPantalla() {
+  cout << "Presione la tecla enter para continuar ..." << endl;
+  system("read");
+  borrarPantalla();
 }
