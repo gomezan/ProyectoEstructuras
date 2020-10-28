@@ -28,7 +28,7 @@ int main (int argc, char *argv[]){
     string comando;
 
     do{
-        //borrarPantalla();
+        borrarPantalla();
         cout << "\n\nPROGRAMA DE TRANSPORTE\n\n";
         cout << "Introduzca un comando: " << endl;
         cout << "$ ";
@@ -45,7 +45,7 @@ int main (int argc, char *argv[]){
     }while(log == 0);
 
     while(true){
-        //borrarPantalla();
+        borrarPantalla();
         cout << "PROGRAMA DE TRANSPORTE\n\n";
         cout << "Ingrese un commando: "<<endl;
         cout << "$ ";

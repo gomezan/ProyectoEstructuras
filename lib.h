@@ -1,11 +1,11 @@
-/* 
+/*
 * Name: Booking.h
 * Data structures: First delivery
 * Authors: Carlos Andres Erazo Garzon
 *          Nicolas Gil
 *          Andres Gomez
 * Date:
-* Description: 
+* Description:
 */
 
 #ifndef __LIB__H__
@@ -20,6 +20,7 @@ using namespace std;
 #include "Agency.h"
 #include "Route.h"
 #include "Travel.h"
+#include "Booking.h"
 
 void ayuda();
 int login(string comando);
@@ -27,6 +28,7 @@ void listar_buses();
 void listar_rutas();
 void listar_viajes();
 void borrarPantalla();
+void reporte_ventas(string comando);
 
 #include "lib.hxx"
 #endif

@@ -250,8 +250,8 @@ void listar_viajes(){
 
 }
 
-
-void reporte_ventas(string comando)
+/*
+void separarFechas(string comando)
 {
     string s1,s2,s3;
     size_t inicio, fin;
@@ -267,15 +267,15 @@ void reporte_ventas(string comando)
   cout<<"s2: "<<s1<<endl;
 
 }
-
-void listar_b(){
+*/
+void reporte_ventas(string comando){
    int cuenta = 0;
    string opc;
-   Bus aux;
+   Booking aux;
    borrarPantalla();
-   cout<<"\t\t\t\t\tLISTA DE BUSES\n"<<endl;
+   cout<<"\t\t\t\t\tReporte_ventas\n"<<endl;
 
-   FILE *archivo = fopen("buses.dat", "r");
+   FILE *archivo = fopen("reservas.dat", "r");
 
 
    if(archivo != NULL){
@@ -286,15 +286,25 @@ void listar_b(){
          cuenta ++;
 
          char * valor = strtok(linea, ";");
-         aux.setcodeBus(valor);
+         aux.setAgency(valor);
          valor = strtok(NULL, ";");
-         if(!strcmp(valor, "Corriente")){
-            aux.setType('c');
-         }else{
-            aux.setType('s');
-         }
+          aux.setCodeBooking(valor);
          valor = strtok(NULL, ";");
-         aux.setChairs(atoi(valor));
+         aux.setCodeRoute(valor);
+         valor = strtok(NULL, ";");
+         aux.setCodeBus(valor);
+         valor = strtok(NULL, ";");
+         aux.setCodeTravel(valor);
+         valor = strtok(NULL, ";");
+         aux.setChairNumber(atoi(valor));
+         valor = strtok(NULL, ";");
+         aux.setPassenger(valor);
+         valor = strtok(NULL, ";");
+         aux.setDate(valor);
+         valor = strtok(NULL, ";");
+         aux.setDate(valor);
+         valor = strtok(NULL, ";");
+         aux.setTime(valor);
          cout << cuenta << ". ";
          aux.print();
 
@@ -308,7 +318,7 @@ void listar_b(){
                break;
             }
             borrarPantalla();
-            cout<<"\t\t\t\t\tLISTA DE BUSES\n"<<endl;
+            cout<<"\t\t\t\t\tReporte de ventas\n"<<endl;
          }
       }
 

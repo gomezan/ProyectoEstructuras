@@ -1,26 +1,25 @@
-/* 
+/*
 * Name: Booking.hxx
 * Data structures: First delivery
 * Authors: Carlos Andres Erazo Garzon
 *          Nicolas Gil
 *          Andres Gomez
 * Date:
-* Description: 
+* Description:
 */
 
 #include "Booking.h"
 
 
 
-Booking::Booking(string agency, string codeBooking, string codeRoute, string codeBus, 
-                 string codeTravel, int chairNumber, string passenger, string date, 
+Booking::Booking(string agency, string codeBooking, string codeRoute, string codeBus,
+                 string codeTravel, int chairNumber, string passenger, string date,
                  string time, double chairCost)
 {
 }
 
 Booking::Booking()
 {
-}
 
 string Booking::getAgency(){
     return this->agency;
@@ -106,7 +105,7 @@ void Booking::print(){
     cout << "Agency: " << this->agency << " Code booking: " << this->codeBooking
          << " Code route: " << this->codeRoute << " Code Bus: " << this->codeBus
          << " Code travel: " << this->codeTravel << " Chair number: " << this->chairNumber
-         << " Passenger: " << this->passenger << " Date: " << this->date 
+         << " Passenger: " << this->passenger << " Date: " << this->date
          << " Time: " << this->time << " Chair cost: " << this->chairCost
          << endl;
 }
