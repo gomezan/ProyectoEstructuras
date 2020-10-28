@@ -1,4 +1,5 @@
 /*
+<<<<<<< HEAD
  * Nombre: transporte.cpp (main)
  * Estructuras de datos: primera entrega
  * Autores: Carlos Andres Erazo Garzon
@@ -11,6 +12,20 @@
  * documentos necesarios, verificacion de disponibilidad de tiquetes, cotizacion
  * y venta de tiquetes, asi como tambien reportes entre otros.
  */
+=======
+* Nombre: transporte.cpp (main)
+* Estructuras de datos: primera entrega
+* Autores: Carlos Andres Erazo Garzon
+*          Nicolas Gil
+*          Andres Gomez
+* Fecha:
+* Descripcion: El escenario es una empresa de transporte que cuenta con varias agencias
+* que cumplen con el papel de venta de ticketes, para la primera entrega del proyecto
+* el programa atiende con realizar la lectura de los documentos necesarios, verificacion
+* de disponibilidad de tiquetes, cotizacion y venta de tiquetes, asi como tambien reportes
+* entre otros.
+*/
+>>>>>>> origin/andres
 
 #include "lib.h"
 #include <algorithm>
@@ -76,6 +91,7 @@ int main(int argc, char **argv) {
     if (cmd.size() > 0) {
       add_history(buf);
     }
+<<<<<<< HEAD
     free(buf);
     stringstream scmd(cmd);
     scmd >> cmd;
@@ -103,6 +119,59 @@ int main(int argc, char **argv) {
       if (cmd.find("listar_viajes") != std::string::npos) {
         listar_viajes();
       }
+=======
+    string comando;
+
+    do{
+        //borrarPantalla();
+        cout << "\n\nPROGRAMA DE TRANSPORTE\n\n";
+        cout << "Introduzca un comando: " << endl;
+        cout << "$ ";
+        cin >> comando;
+
+        if(comando == "ayuda"){
+            ayuda();
+        }else if(comando.find("login") != string::npos){
+            log = login(comando);
+        }else{
+            cout << "Para las demas operaciones primero debe registrarse" << endl;
+        }
+
+    }while(log == 0);
+
+    while(true){
+        //borrarPantalla();
+        cout << "PROGRAMA DE TRANSPORTE\n\n";
+        cout << "Ingrese un commando: "<<endl;
+        cout << "$ ";
+        cin >> comando;
+
+        if(comando == "ayuda"){
+            ayuda();
+        }
+        else if(comando.find("login") != string::npos){
+            cout<<"Ya se encuentra registrado"<<endl;
+        }
+        else if(comando.find("logout") != string::npos){
+            return 0;
+        }
+        else if(comando.find("listar_buses") != string::npos){
+            listar_buses();
+        }
+        else if(comando.find("listar_rutas") != string::npos){
+            listar_rutas();
+        }
+        else if(comando.find("listar_viajes") != string::npos){
+            listar_viajes();
+        }
+        else if(comando.find("reporte_ventas") != string::npos){
+            reporte_ventas(comando);
+        }
+        else{
+            cout<<"Comando no valido verifique e intente nuevamente"<<endl;
+            cout<<endl;
+        }
+>>>>>>> origin/andres
 
       // COMPONENTE II
 
@@ -126,8 +195,13 @@ int main(int argc, char **argv) {
     } else {
       cout << "Comando no registrado." << std::endl;
     }
+<<<<<<< HEAD
   }
 
   cout << endl;
   return 0;
 }
+=======
+
+}
+>>>>>>> origin/andres
