@@ -13,36 +13,34 @@
 #define DATA 10
 
 void ayuda(){
-   string opc;
-
+   
    // COMPONENTE I
 
    cout << "\nComandos disponibles:\n"<<endl;
-   cout << "\t *Login<id_agencia> \n\t\t"
+   cout << "\t Login<id_agencia> \n\t\t"
         << "Este comando pregunta al usuario por una contraseña \n\t\t"
         << "para el identificador de la agencia dado en el comando, \n\t\t"
         << "y activa la sesión si la contraseña es igual a la guardada \n\t\t"
         << "en el registro correspondiente para la agencia dada, en caso \n\t\t"
         << "contrario muestra un mensaje de error." << endl;
-   cout << "\t *logout \n\t\t"
+   cout << "\t logout \n\t\t"
         << "Este comando termina la sesión activa de la agencia y \n\t\t"
         << "vuelve a la consola o terminal del sistema." << endl;
-   cout << "\t *listar_buses \n\t\t"
+   cout << "\t listar_buses \n\t\t"
         << "Imprime, con una visualización agradable, los registros de \n\t\t"
         << "los buses" << endl;
-   cout << "\t *listar_rutas \n\t\t"
+   cout << "\t listar_rutas \n\t\t"
         << " Imprime, con una visualización agradable, los registros de \n\t\t"
         << "las rutas" << endl;
-   cout << "\t *listar_viajes \n\t\t"
+   cout << "\t listar_viajes \n\t\t"
         << "Imprime, con una visualización agradable, los registros de \n\t\t"
         << "los viajes" << endl;
-   cout << "\n\nIntroduzca cualquier letra para continuar ...";
 
     //COMPONENTE II
 
     //COMPONENTE III
 
-   cin >> opc;
+   pausarPantalla();
 
 }
 

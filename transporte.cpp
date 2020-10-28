@@ -26,6 +26,7 @@ using namespace std;
 int log = 0;
 
 vector<string> vocabulory{
+    "ayuda",
     // COMPONENTE I
     "login", "logout", "listar_buses", "listar_rutas", "listar_viajes",
     // COMPONENTE II
@@ -90,61 +91,64 @@ int main(int argc, char **argv) {
         find(vocabulory.begin(), vocabulory.end(), cmd);
     if (itr != vocabulory.end()) {
 
+
+
       // COMPONENTE I
 
       if (cmd.find("login") != std::string::npos) {
         log = login(comando);
-      }
-      if (log == 0) {
-        cout << "Primero debe registrarse." << endl;
-        pausarPantalla();
-      } else {
-        if (cmd.find("logout") != std::string::npos) {
-          cout << "Gracias por usar el programa de transporte." << endl;
-          return 0;
-        }
-        if (cmd.find("listar_buses") != std::string::npos) {
-          listar_buses();
-        }
-        if (cmd.find("listar_rutas") != std::string::npos) {
-          listar_rutas();
-        }
-        if (cmd.find("listar_viajes") != std::string::npos) {
-          listar_viajes();
-        }
+      } else if (cmd.find("ayuda") != std::string::npos){
+          ayuda();
+      } else if (log == 0) {
+          cout << "Primero debe registrarse." << endl;
+          pausarPantalla();
+        } else {
+          if (cmd.find("logout") != std::string::npos) {
+            cout << "Gracias por usar el programa de transporte." << endl;
+            return 0;
+          }
+          if (cmd.find("listar_buses") != std::string::npos) {
+            listar_buses();
+          }
+          if (cmd.find("listar_rutas") != std::string::npos) {
+            listar_rutas();
+          }
+          if (cmd.find("listar_viajes") != std::string::npos) {
+            listar_viajes();
+          }
 
-        // COMPONENTE II
+          // COMPONENTE II
 
-        if (cmd.find("disponibilidad") != std::string::npos) {
-          listar_viajes();
-        }
-        if (cmd.find("reserva") != std::string::npos) {
-          listar_viajes();
-        }
-        if (cmd.find("reporte_ventas") != std::string::npos) {
-          listar_viajes();
-        }
-        if (cmd.find("cancelar") != std::string::npos) {
-          listar_viajes();
-        }
-        if (cmd.find("cambiar") != std::string::npos) {
-          listar_viajes();
-        }
+          if (cmd.find("disponibilidad") != std::string::npos) {
+            listar_viajes();
+          }
+          if (cmd.find("reserva") != std::string::npos) {
+            listar_viajes();
+          }
+          if (cmd.find("reporte_ventas") != std::string::npos) {
+            listar_viajes();
+          }
+          if (cmd.find("cancelar") != std::string::npos) {
+            listar_viajes();
+          }
+          if (cmd.find("cambiar") != std::string::npos) {
+            listar_viajes();
+          }
 
-        // COMPONENTE III
+          // COMPONENTE III
 
-        if (cmd.find("recomendar") != std::string::npos) {
-          listar_viajes();
-        }
+          if (cmd.find("recomendar") != std::string::npos) {
+            listar_viajes();
+          }
 
-        if (cmd.find("comprimir") != std::string::npos) {
-          listar_viajes();
-        }
+          if (cmd.find("comprimir") != std::string::npos) {
+            listar_viajes();
+          }
 
-        if (cmd.find("descomprimir") != std::string::npos) {
-          listar_viajes();
+          if (cmd.find("descomprimir") != std::string::npos) {
+            listar_viajes();
+          }
         }
-      }
 
     } else {
       cout << "Comando no registrado." << std::endl;
