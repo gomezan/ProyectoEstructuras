@@ -47,6 +47,7 @@ void descomprimir(string comando);
 //UTILIDADES
 
 void borrarPantalla();
+void pausarPantalla();
 
 #include "lib.hxx"
 #endif

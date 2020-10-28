@@ -55,11 +55,16 @@ int login(string comando){
   char * user = (char*)malloc(DATA*sizeof(char));
   char * contrasena = (char*)malloc(DATA*sizeof(char));
   strcpy(buffer,comando.c_str());
-  string opc;
+    
+  user = strtok(buffer," ");
+  user = strtok(NULL, "");
 
-  user = strtok(buffer,"<");
-  user = strtok(NULL,">");
-  cout<< "Ingrese la contraseña: " <<endl;
+    cout << endl;
+  printf("||%10s%5s||\n", "LOGIN", "");
+  cout << endl;
+  cout << "Usuario ingresado: "<< user << endl;
+
+  cout<< "Ingrese la contraseña: \n$ ";
   cin >> contrasena;
 
   FILE *archivo = fopen("contrasegnas.dat","r");
@@ -77,19 +82,13 @@ int login(string comando){
       if(strcmp(nombre,user) == 0){
         if(strcmp(contra,contrasena) == 0){
            cout << endl<< "Bienvenido al sistema" << endl;
-           cout<< "Para continuar ingrese \'s\' ..."<<endl;
-            do{
-               cin >> opc;
-            }while(opc != "s");
+           pausarPantalla();
            return 1;
         }
       }
     }
     cout << "Error de autenticación, no es posible ingresar al sistema, inténtelo otra vez" << endl;
-    cout<< "Para continuar ingrese \'s\' ..."<<endl;
-   do{
-      cin >> opc;
-   }while(opc != "s");
+    pausarPantalla();
  }
   return 0;
 }
@@ -379,4 +378,5 @@ void borrarPantalla(){
 void pausarPantalla(){
     cout << "Presione la tecla enter para continuar ..." <<endl;
     system("read");
+    borrarPantalla();
 }
