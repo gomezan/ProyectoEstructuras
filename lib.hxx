@@ -96,7 +96,9 @@ void listar_buses(){
    string opc;
    Bus aux;
    borrarPantalla();
-   cout<<"\t\t\t\t\tLISTA DE BUSES\n"<<endl;
+   cout << endl;
+   printf("||%10s%5s||\n", "LOGIN", "");
+   cout << endl;
 
    FILE *archivo = fopen("buses.dat", "r");
 
@@ -139,10 +141,7 @@ void listar_buses(){
       perror("No se pudo abrir el archivo");
    }
    cout << "\nSe ha mostrado la lista con exito"<<endl;
-   cout << "Para continuar ingrese \'s\' ..."<<endl;
-   do{
-      cin >> opc;
-   }while(opc != "s");
+   pausarPantalla();
 
 }
 
@@ -196,10 +195,7 @@ void listar_rutas(){
       perror("No se pudo abrir el archivo");
    }
    cout << "\nSe ha mostrado la lista con exito"<<endl;
-   cout << "Para continuar ingrese \'s\' ..."<<endl;
-   do{
-      cin >> opc;
-   }while(opc != "s");
+   pausarPantalla();
 
 }
 void listar_viajes(){
@@ -252,10 +248,7 @@ void listar_viajes(){
       perror("No se pudo abrir el archivo");
    }
    cout << "\nSe ha mostrado la lista con exito"<<endl;
-   cout << "Para continuar ingrese \'s\' ..."<<endl;
-   do{
-      cin >> opc;
-   }while(opc != "s");
+   pausarPantalla();
 
 }
 
@@ -335,11 +328,7 @@ void listar_b(){
    }else{
       perror("No se pudo abrir el archivo");
    }
-   cout << "\nSe ha mostrado la lista con exito"<<endl;
-   cout << "Para continuar ingrese \'s\' ..."<<endl;
-   do{
-      cin >> opc;
-   }while(opc != "s");
+   pausarPantalla();
 
 }
 

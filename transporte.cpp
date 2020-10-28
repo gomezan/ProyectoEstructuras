@@ -120,33 +120,33 @@ int main(int argc, char **argv) {
           // COMPONENTE II
 
           if (cmd.find("disponibilidad") != std::string::npos) {
-            listar_viajes();
+            disponibilidad(comando);
           }
           if (cmd.find("reserva") != std::string::npos) {
-            listar_viajes();
+            reserva(comando);
           }
           if (cmd.find("reporte_ventas") != std::string::npos) {
-            listar_viajes();
+            reporte_ventas(comando);
           }
           if (cmd.find("cancelar") != std::string::npos) {
-            listar_viajes();
+            cancelar(comando);
           }
           if (cmd.find("cambiar") != std::string::npos) {
-            listar_viajes();
+            cambiar(comando);
           }
 
           // COMPONENTE III
 
           if (cmd.find("recomendar") != std::string::npos) {
-            listar_viajes();
+            recomendar(comando);
           }
 
           if (cmd.find("comprimir") != std::string::npos) {
-            listar_viajes();
+            comprimir(comando);
           }
 
           if (cmd.find("descomprimir") != std::string::npos) {
-            listar_viajes();
+            descomprimir(comando);
           }
         }
 
