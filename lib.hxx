@@ -56,8 +56,8 @@ int login(string comando) {
   user = strtok(buffer, " ");
   user = strtok(NULL, "");
 
-  cout << "|| PROGRAMA DE TRANSPORTE || \n"<<endl;
-      printf("||%5s %s %5s||\n", "", "LOGIN", "");
+  cout << "|| PROGRAMA DE TRANSPORTE || \n" << endl;
+  printf("||%5s %s %5s||\n", "", "LOGIN", "");
   cout << endl;
 
   cout << "Usuario ingresado: " << user << endl;
@@ -88,6 +88,9 @@ int login(string comando) {
             "inténtelo otra vez"
          << endl;
     pausarPantalla();
+    fclose(archivo);
+  } else {
+    perror("No se pudo abrir el archivo");
   }
   return 0;
 }
@@ -138,7 +141,7 @@ void listar_buses() {
         cout << endl;
       }
     }
-
+    fclose(archivo);
   } else {
     perror("No se pudo abrir el archivo");
   }
@@ -196,6 +199,7 @@ void listar_rutas() {
         cout << endl;
       }
     }
+    fclose(archivo);
   } else {
     perror("No se pudo abrir el archivo");
   }
@@ -252,6 +256,7 @@ void listar_viajes() {
         cout << endl;
       }
     }
+    fclose(archivo);
   } else {
     perror("No se pudo abrir el archivo");
   }
@@ -262,7 +267,130 @@ void listar_viajes() {
 // COMPONENTE II
 
 void disponibilidad(string comando) {
-  cout << "En proceso ..." << endl;
+  int cuenta = 0;
+  string opc;
+
+  vector<string> v = split(comando, " ");
+
+  if (v.size() != 3) {
+    cout << "Parametros incorrectos" << endl;
+    cout << "$ disponibilidad <ciudad_origen> <ciudad_destino>\n" << endl;
+    pausarPantalla();
+    return;
+  }
+  string origen = v.at(1);
+  string destino = v.at(2);
+
+  borrarPantalla();
+  cout << "|| PROGRAMA DE TRANSPORTE || \n" << endl;
+  printf("||%5s %s %5s||\n", "", "DISPONIBILIDAD", "");
+  cout << endl;
+
+  FILE *archViajes = fopen("viajes.dat", "r");
+
+  if (archViajes != NULL) {
+
+    char *linea = (char *)malloc(CHUNK);
+
+    while (fgets(linea, CHUNK, archViajes)) {
+
+      vector<string> valorV = split(linea, ";");
+      Travel auxT(valorV.at(0), valorV.at(1), valorV.at(2), valorV.at(3),
+                  valorV.at(4), valorV.at(5), atof(valorV.at(6).c_str()));
+
+      FILE *archRoute = fopen("rutas.dat", "r");
+
+      if (archRoute != NULL) {
+        char *lineaR = (char *)malloc(CHUNK);
+
+        while (fgets(lineaR, CHUNK, archRoute)) {
+
+          vector<string> valorR = split(lineaR, ";");
+
+          Route auxR(valorR.at(0), valorR.at(1), valorR.at(2),
+                     valorR.at(3), atoi(valorR.at(4).c_str()),
+                     atof(valorR.at(5).c_str()));
+
+          if (auxT.getCodeRoute() == auxR.getCodeRoute() &&
+              auxR.getCityOrg() == origen && auxR.getCityDst() == destino) {
+
+            FILE *archBooking = fopen("reservas.dat", "r");
+
+            if (archBooking != NULL) {
+              char *lineaB = (char *)malloc(CHUNK);
+              vector<int> puestosO;
+              int sillasTotales = 0;
+              while (fgets(lineaB, CHUNK, archBooking)) {
+                vector<string> valorB = split(lineaB, ";");
+
+                Booking auxB(
+                    valorB.at(0), valorB.at(1), valorB.at(2), valorB.at(3),
+                    valorB.at(4), atoi(valorB.at(5).c_str()), valorB.at(6),
+                    valorB.at(7), valorB.at(8), atof(valorB.at(9).c_str()));
+
+                if (auxB.getCodeRoute() == auxR.getCodeRoute() &&
+                    auxB.getCodeTravel() == auxT.getCodeTravel()) {
+
+                  puestosO.push_back(auxB.getChairNumber());
+
+                  FILE *archBus = fopen("buses.dat", "r");
+                  if (archBus != NULL) {
+                    char *lineaBus = (char *)malloc(CHUNK);
+                    while (fgets(lineaBus, CHUNK, archBus)) {
+                      vector<string> valorBuses = split(lineaBus, ";");
+                      char temp;
+                      if (valorBuses.at(1) == "Corriente") {
+                        temp = 'c';
+                      } else {
+                        temp = 's';
+                      }
+
+                      Bus auxBus(valorBuses.at(0), temp,
+                                 stoi(valorBuses.at(2)));
+                      sillasTotales = auxBus.getChairs();
+                    }
+                  }
+                  fclose(archBus);
+                  bool sillasDisp[sillasTotales] = {true};
+                  for (int i = 0; i < puestosO.size(); i++) {
+                    sillasDisp[puestosO.at(i)] = false;
+                  }
+
+                  cout << "Para el viaje: " << auxT.getCodeTravel() << endl;
+                  cout << "Fecha: " << auxT.getDate() << " y hora: " << auxT.getTime() <<endl;
+                  cout << "De: " << origen << " a: " << destino << endl;
+                  cout << "En la ruta: " << auxR.getCodeRoute() << endl;
+                  cout << "Tiene disponibles los siguientes asientos" << endl;
+                  int cont = 0;
+                  for (int i = 0; i < sillasTotales; i++) {
+                    if (sillasDisp[i] == false) {
+                      cout << i+1 << "\t";
+                      cont++;
+                    }else{
+                        cout << "-" <<"\t";
+                    }
+                    if ((i+1) % 2 == 0) {
+                      cout << endl;
+                    }
+                  }
+                  cout << "\nHay un total de: " << cont << " sillas disponibles"
+                       << endl;
+                }
+              }
+
+              fclose(archBooking);
+            }
+          }
+        }
+
+        fclose(archRoute);
+      }
+    }
+    fclose(archViajes);
+  } else {
+    perror("No se pudo abrir el archivo");
+  }
+  cout << "\nSe han mostrado los resultados con exito" << endl;
   pausarPantalla();
 }
 void reserva(string comando) {
@@ -366,4 +494,19 @@ void pausarPantalla() {
   cout << "Presione la tecla enter para continuar ..." << endl;
   system("read");
   borrarPantalla();
+}
+
+vector<string> split(string s, string delimiter) {
+  size_t pos_start = 0, pos_end, delim_len = delimiter.length();
+  string token;
+  vector<string> res;
+
+  while ((pos_end = s.find(delimiter, pos_start)) != string::npos) {
+    token = s.substr(pos_start, pos_end - pos_start);
+    pos_start = pos_end + delim_len;
+    res.push_back(token);
+  }
+
+  res.push_back(s.substr(pos_start));
+  return res;
 }

@@ -20,6 +20,9 @@ using namespace std;
 #include "Agency.h"
 #include "Route.h"
 #include "Travel.h"
+#include <vector>
+#include "Booking.h"
+#include <stdlib.h>
 
 void ayuda();
 
@@ -48,6 +51,7 @@ void descomprimir(string comando);
 
 void borrarPantalla();
 void pausarPantalla();
+vector<string> split(string s, string delimiter);
 
 #include "lib.hxx"
 #endif

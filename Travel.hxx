@@ -10,12 +10,13 @@
 
 //#include "Travel.h"
 
-Travel::Travel(string codeRoute, string codeBus, string codeTravel, string date, string driverName, double chairCost)
+Travel::Travel(string codeRoute, string codeBus, string codeTravel, string date, string time, string driverName, double chairCost)
 {
     this->codeRoute = codeRoute;
     this->codeBus = codeBus;
     this->codeTravel = codeTravel;
     this->date = date;
+    this->time = time;
     this->driverName = driverName;
     this->chairCost = chairCost;
 }
@@ -60,9 +61,18 @@ double Travel::getChairCost(){
 void Travel::setChairCost(double chairCost){
     this->chairCost = chairCost;
 }
+
+void Travel::setTime(string time){
+    this->time = time;
+}
+string Travel::getTime(){
+    return this->time;
+}
+
 void Travel::print(){
     cout << "Codigo de ruta: " << this->codeRoute << " Codigo de bus: " << this->codeBus
          << "Codigo de viaje: " << this->codeTravel << " Fecha: " << this->date
+         << "Hora: " << this->time
          << " Conductor: " << this->driverName << " Costo de la silla: " << this->chairCost
          << endl;
 }

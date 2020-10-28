@@ -8,8 +8,8 @@
 * Description: 
 */
 
-#ifndef _ROUTE_H_
-#define _ROUTE_H_
+#ifndef _BOOKING_H_
+#define _BOOKING_H_
 
 #include <iostream>
 using namespace std;
@@ -239,5 +239,5 @@ public:
     void print();
 
 };
-
+#include "Booking.hxx"
 #endif

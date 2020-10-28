@@ -16,6 +16,17 @@ Booking::Booking(string agency, string codeBooking, string codeRoute, string cod
                  string codeTravel, int chairNumber, string passenger, string date, 
                  string time, double chairCost)
 {
+
+    this->agency = agency;
+    this->codeBooking = codeBooking;
+    this->codeRoute = codeRoute;
+    this->codeBus = codeBus;
+    this->codeTravel = codeTravel;
+    this->chairNumber = chairNumber;
+    this->passenger = passenger;
+    this->date = date;
+    this->time = time;
+    this->chairCost = chairCost;
 }
 
 Booking::Booking()
