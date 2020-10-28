@@ -307,9 +307,8 @@ void disponibilidad(string comando) {
 
           vector<string> valorR = split(lineaR, ";");
 
-          Route auxR(valorR.at(0), valorR.at(1), valorR.at(2),
-                     valorR.at(3), atoi(valorR.at(4).c_str()),
-                     atof(valorR.at(5).c_str()));
+          Route auxR(valorR.at(0), valorR.at(1), valorR.at(2), valorR.at(3),
+                     atoi(valorR.at(4).c_str()), atof(valorR.at(5).c_str()));
 
           if (auxT.getCodeRoute() == auxR.getCodeRoute() &&
               auxR.getCityOrg() == origen && auxR.getCityDst() == destino) {
@@ -357,19 +356,21 @@ void disponibilidad(string comando) {
                   }
 
                   cout << "Para el viaje: " << auxT.getCodeTravel() << endl;
-                  cout << "Fecha: " << auxT.getDate() << " y hora: " << auxT.getTime() <<endl;
+                  cout << "Fecha: " << auxT.getDate()
+                       << " y hora: " << auxT.getTime() << endl;
                   cout << "De: " << origen << " a: " << destino << endl;
                   cout << "En la ruta: " << auxR.getCodeRoute() << endl;
                   cout << "Tiene disponibles los siguientes asientos" << endl;
                   int cont = 0;
                   for (int i = 0; i < sillasTotales; i++) {
                     if (sillasDisp[i] == false) {
-                      cout << i+1 << "\t";
+                      cout << i + 1 << "\t";
                       cont++;
-                    }else{
-                        cout << "-" <<"\t";
+                    } else {
+                      cout << "-"
+                           << "\t";
                     }
-                    if ((i+1) % 2 == 0) {
+                    if ((i + 1) % 2 == 0) {
                       cout << endl;
                     }
                   }
@@ -399,66 +400,145 @@ void reserva(string comando) {
 }
 
 void reporte_ventas(string comando) {
-  string s1, s2, s3;
-  size_t inicio, fin;
-  cout << "en progreso" << comando << endl;
+  string fechaInicio, fechaFin;
+  vector<string> v = split(comando, " ");
 
-  inicio = comando.find_first_of('[');
-  s1 = comando.substr(inicio + 1);
-  inicio = s1.find_first_of(']');
-  s2 = s1.substr(0, inicio + 2);
-  s1 = s1.substr(0, inicio + 1);
-
-  cout << "s1: " << s1 << endl;
-  cout << "s2: " << s1 << endl;
-}
-
-void listar_b() {
-  int cuenta = 0;
-  string opc;
-  Bus aux;
   borrarPantalla();
-  cout << "\t\t\t\t\tLISTA DE BUSES\n" << endl;
+  cout << "|| PROGRAMA DE TRANSPORTE || \n" << endl;
+  printf("||%5s %s %5s||\n", "", "REPORTE VENTAS", "");
+  cout << endl;
 
-  FILE *archivo = fopen("buses.dat", "r");
+  if (v.size() != 3) {
+    time_t now = time(0);
+    struct tm tstruct;
+    char buf[80];
+    tstruct = *localtime(&now);
+    strftime(buf, sizeof(buf), "%Y%m%d", &tstruct);
 
-  if (archivo != NULL) {
-    char *linea = (char *)malloc(CHUNK);
-
-    while (fgets(linea, CHUNK, archivo)) {
-
-      cuenta++;
-
-      char *valor = strtok(linea, ";");
-      aux.setcodeBus(valor);
-      valor = strtok(NULL, ";");
-      if (!strcmp(valor, "Corriente")) {
-        aux.setType('c');
-      } else {
-        aux.setType('s');
-      }
-      valor = strtok(NULL, ";");
-      aux.setChairs(atoi(valor));
-      cout << cuenta << ". ";
-      aux.print();
-
-      if (cuenta % 20 == 0) {
-        do {
-          cout << "\nSe han impreso 20 registros" << endl;
-          cout << "Para continuar ingrese \'s\', para salir \'n\' ..." << endl;
-          cin >> opc;
-        } while (opc != "s" && opc != "n");
-        if (opc == "n") {
-          break;
-        }
-        borrarPantalla();
-        cout << "\t\t\t\t\tLISTA DE BUSES\n" << endl;
-      }
-    }
+    fechaInicio = buf;
+    fechaFin = buf;
 
   } else {
-    perror("No se pudo abrir el archivo");
+    fechaInicio = v.at(1);
+    fechaFin = v.at(2);
   }
+  cout << "Parametros a buscar: " << fechaInicio << " hasta " << fechaFin <<endl;
+
+  string anioI, mesI, diaI;
+  string anioF, mesF, diaF;
+
+  for (int i = 0; i < fechaInicio.size(); i++) {
+    if (i < 4) {
+      anioI += fechaInicio[i];
+      anioF += fechaFin[i];
+    } else if (i < 6) {
+      mesI += fechaInicio[i];
+      mesF += fechaFin[i];
+    } else {
+      diaI += fechaInicio[i];
+      diaF += fechaFin[i];
+    }
+  }
+
+  cout << "Reservas que cumplen con los parametros de busqueda: " << endl;
+  FILE *archReservas = fopen("reservas.dat", "r");
+
+  vector<Booking> reservasT;
+  vector<double> total;
+  vector<double> cambio;
+  vector<double> cancelacion;
+
+  if (archReservas != NULL) {
+
+    char *lineaR = (char *)malloc(CHUNK);
+
+    while (fgets(lineaR, CHUNK, archReservas)) {
+
+      vector<string> valorB = split(lineaR, ";");
+      Booking auxB(valorB.at(0), valorB.at(1), valorB.at(2), valorB.at(3),
+                   valorB.at(4), atoi(valorB.at(5).c_str()), valorB.at(6),
+                   valorB.at(7), valorB.at(8), atof(valorB.at(9).c_str()));
+
+      string fecha = auxB.getDate();
+
+      string anio, mes, dia;
+
+      for (int i = 0; i < fecha.size(); i++) {
+        if (i < 4) {
+          anio += fechaInicio[i];
+        } else if (i < 6) {
+          mes += fechaInicio[i];
+        } else {
+          diaI += fechaInicio[i];
+        }
+      }
+      if (v.size() != 3) {
+        if (atoi(anio.c_str()) == atoi(anioI.c_str()) &&
+            atoi(mes.c_str()) == atoi(mesI.c_str()) &&
+            atoi(dia.c_str()) == atoi(diaI.c_str())) {
+          total.push_back(auxB.getChairCost());
+          reservasT.push_back(auxB);
+        }
+      } else if (atoi(anio.c_str()) >= atoi(anioI.c_str()) &&
+          atoi(mes.c_str()) >= atoi(mesI.c_str()) &&
+          atoi(dia.c_str()) >= atoi(diaI.c_str()) &&
+          atoi(anio.c_str()) <= atoi(anioF.c_str()) &&
+          atoi(mes.c_str()) <= atoi(mesF.c_str()) &&
+          atoi(dia.c_str()) <= atoi(diaF.c_str())) {
+        total.push_back(auxB.getChairCost());
+        reservasT.push_back(auxB);
+      }
+    }
+    fclose(archReservas);
+  }
+
+  for (int i = 0; i < reservasT.size(); i++) {
+    string codeB = reservasT.at(i).getCodeBooking();
+    for (int j = 0; j < reservasT.size(); j++) {
+      string codeB2 = reservasT.at(i).getCodeBooking();
+      if (codeB == codeB2 && i != j &&
+          reservasT.at(i).getDate() != reservasT.at(j).getDate()) {
+        cambio.push_back(reservasT.at(i).getChairCost());
+      }
+    }
+  }
+
+  for (int i = 0; i < reservasT.size(); i++) {
+    if (reservasT.at(i).getCodeTravel() == "VI000") {
+      cancelacion.push_back(reservasT.at(i).getChairCost());
+    }
+  }
+
+  cout << "Dinero total recaudado: ";
+
+  double recaudoTotal = 0;
+
+  for (int i = 0; i < total.size(); i++) {
+    recaudoTotal += total.at(i);
+  }
+
+  cout << recaudoTotal << endl;
+
+  cout << "Dinero total por cambios: ";
+
+  recaudoTotal = 0;
+
+  for (int i = 0; i < cambio.size(); i++) {
+    recaudoTotal += cambio.at(i);
+  }
+
+  cout << recaudoTotal << endl;
+
+  cout << "Dinero total por cancelaciones: ";
+
+  recaudoTotal = 0;
+
+  for (int i = 0; i < cancelacion.size(); i++) {
+    recaudoTotal += cancelacion.at(i);
+  }
+
+  cout << recaudoTotal << endl;
+
   pausarPantalla();
 }
 

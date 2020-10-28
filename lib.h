@@ -23,6 +23,7 @@ using namespace std;
 #include <vector>
 #include "Booking.h"
 #include <stdlib.h>
+#include <time.h>
 
 void ayuda();
 
