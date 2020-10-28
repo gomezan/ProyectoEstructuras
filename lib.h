@@ -22,11 +22,28 @@ using namespace std;
 #include "Travel.h"
 
 void ayuda();
+
+//COMPONENTE I
+
 int login(string comando);
 void listar_buses();
 void listar_rutas();
 void listar_viajes();
 void borrarPantalla();
+
+//COMPONENTE II
+
+void disponibilidad(string comando);
+void reserva(string comando);
+void reporte_ventas(string comando);
+void cancelar(string comando);
+void cambiar(string comando);
+
+//COMPONENTE III
+
+void recomendar(string comando);
+void comprimir(string comando);
+void descomprimir(string comando);
 
 #include "lib.hxx"
 #endif

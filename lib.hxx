@@ -14,6 +14,9 @@
 
 void ayuda(){
    string opc;
+
+   // COMPONENTE I
+
    cout << "\nComandos disponibles:\n"<<endl;
    cout << "\t *Login<id_agencia> \n\t\t"
         << "Este comando pregunta al usuario por una contraseña \n\t\t" 
@@ -34,7 +37,13 @@ void ayuda(){
         << "Imprime, con una visualización agradable, los registros de \n\t\t"
         << "los viajes" << endl;
    cout << "\n\nIntroduzca cualquier letra para continuar ...";
+
+    //COMPONENTE II
+
+    //COMPONENTE III
+
    cin >> opc;
+
 }
 int login(string comando){
 
@@ -248,4 +257,9 @@ void listar_viajes(){
 }
 void borrarPantalla(){
    system("clear");
+}
+
+void pausarPantalla(){
+    cout << "Presione la tecla enter para continuar ..." <<endl;
+    system("read");
 }
