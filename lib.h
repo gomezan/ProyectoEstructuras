@@ -37,7 +37,7 @@ void listar_viajes();
 // COMPONENTE II
 
 vector<string> disponibilidad(string comando);
-void reserva(string comando);
+void reserva(string comando, string agencia);
 void reporte_ventas(string comando);
 void cancelar(string comando);
 void cambiar(string comando);
