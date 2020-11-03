@@ -1,15 +1,14 @@
-/* 
-* Name: Bus.hxx
-* Data structures: First delivery
-* Authors: Carlos Andres Erazo Garzon
-*          Nicolas Gil
-*          Andres Gomez
-* Date:
-* Description: 
-*/
+/**
+ * Estructuras de datos
+ * Nombre del archivo: Bus.hxx
+ * Autores: Carlos Andres Erazo Garzon
+ *          Nicolas Gil
+ *          Andres Gomez
+ * Fecha: 26/10/2020
+ * Descripcion: Funciones de la clase Bus
+ * */
 
-
-#include "Bus.h"
+#include "clases.h"
 
 Bus::Bus(string codeBus, char type, int chairs)
 {
@@ -22,37 +21,50 @@ Bus::Bus()
 {
 }
 
-string Bus::getcodeBus(){
+string Bus::getcodeBus()
+{
     return this->codeBus;
 }
 
-void Bus::setcodeBus(string codeBus){
+void Bus::setcodeBus(string codeBus)
+{
     this->codeBus = codeBus;
 }
 
-char Bus::getType(){
+char Bus::getType()
+{
     return this->type;
 }
 
-void Bus::setType(char type){
+void Bus::setType(char type)
+{
     this->type = type;
 }
 
-int Bus::getChairs(){
+int Bus::getChairs()
+{
     return this->chairs;
 }
 
-void Bus::setChairs(int chairs){
+void Bus::setChairs(int chairs)
+{
     this->chairs = chairs;
 }
 
-void Bus::print(){
-    cout << "Codigo: " << this->codeBus;
-    if(this->type == 'c'){
-        cout << " Tipo: " << "Corriente";
-    }else{
-        cout << " Tipo: " << "Especial";
+void Bus::print()
+{
+    cout << "\t" << this->codeBus;
+    if (this->type == 'c')
+    {
+        cout << "\n Tipo: "
+             << "Corriente";
     }
-    
-    cout << " Numero de sillas: " << this->chairs << endl;
+    else
+    {
+        cout << "\n Tipo: "
+             << "Especial";
+    }
+
+    cout << "\n Numero de sillas: " << this->chairs 
+        << endl << endl;
 }
