@@ -12,7 +12,7 @@
  * y venta de tiquetes, asi como tambien reportes entre otros.
  */
 
-#include "lib.h"
+#include "principal.h"
 #include <algorithm>
 #include <iostream>
 #include <sstream>
@@ -146,8 +146,9 @@ int main(int argc, char **argv)
                 if (cmd.find("disponibilidad") != std::string::npos)
                 {
                     vector<string> datos = disponibilidad(comando);
-                    for(int i = 0; i<datos.size(); i++){
-                        cout <<datos.at(i)<<endl;
+                    for (int i = 0; i < datos.size(); i++)
+                    {
+                        cout << datos.at(i) << endl;
                     }
                 }
                 if (cmd.find("reserva") != std::string::npos)
@@ -164,7 +165,7 @@ int main(int argc, char **argv)
                 }
                 if (cmd.find("cambiar") != std::string::npos)
                 {
-                    cambiar(comando);
+                    cambiar(comando, agencia);
                 }
 
                 // COMPONENTE III
@@ -187,7 +188,9 @@ int main(int argc, char **argv)
         }
         else
         {
-            cout << "Comando no registrado." << std::endl;
+            cout << "|| PROGRAMA DE TRANSPORTE || \n"
+                 << endl;
+            cout << "ERROR: comando no registrado." << std::endl;
             pausarPantalla();
         }
     }
