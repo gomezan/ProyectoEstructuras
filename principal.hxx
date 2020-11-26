@@ -59,17 +59,44 @@ void ayuda()
          << "Al final informa el total de dinero que la agencia facturó por \n\t\t"
          << "reservas vendidas, pero teniendo en cuenta si hubo cambios o cancelaciones" << endl;
     cout << "\t cancelar <id viaje> <silla> \n\t\t"
-         << " Actualiza el registro de la reserva para el viaje con Id dado y\n\t\t"
+         << "Actualiza el registro de la reserva para el viaje con Id dado y\n\t\t"
          << "numero de silla dados como argumentos, además de actualizar el\n\t\t"
          << "viaje como “VI000”, actualiza el valor del tiquete al 15% del\n\t\t"
          << "contenido en el registro." << endl;
     cout << "\t cambiar <número reserva> <id viaje nuevo> <pasajero> \n\t\t"
-         << " Actualiza el registro de la reserva actual identificada con el\n\t\t"
+         << "Actualiza el registro de la reserva actual identificada con el\n\t\t"
          << "número dado como argumento con el nuevo id de viaje para el pasajero\n\t\t"
          << "indicado, valida si hay sillas disponibles y asigna una al usuario y\n\t\t"
          << "le informa." << endl;
 
     // COMPONENTE III
+
+    cout << "\t recomendar <ciudad origen> <ciudad destino> \n\t\t"
+         << "Generar recomendaciones de rutas entre las dos ciudades dadas \n\t\t"
+         << "como argumentos y que no tengan una ruta directa y sea necesario \n\t\t"
+         << "hacer reserva de más de un viaje, se deben listar las recomendaciones \n\t\t"
+         << "en orden ascendente de los Kms. acumulados en las rutas encontradas.\n\t\t"
+         << endl;
+
+    cout << "\t comprimir <fecha desde> <fecha hasta> \n\t\t"
+         << "Generar el archivo comprimido del reporte de ventas con la\n\t\t"
+         << "correspondiente codificación de Huffman y con extensión .huf \n\t\t"
+         << "en el nombre \n\t\t"
+         << "Sin argumentos genera un archivo comprimido del reporte de ventas\n\t\t"
+         << "del día con el nombre reporte.huf ; con dos argumentos genera\n\t\t"
+         << "un archivo comprimido del reporte de ventas para ese rango de\n\t\t"
+         << "fechas con el nombre reporte.huf "
+         << endl;
+
+    cout << "\t descomprimir <archivo-entrada.huf> <archivo-salida.txt> \n\t\t"
+         << "Descomprimir un archivo comprimido con el comando anterior \n\t\t"
+         << "y mostrar la información original antes de la compresión, \n\t\t"
+         << "bien sea por pantalla o guardarla en una archivo de texto de salida.\n\t\t"
+         << "Sin argumentos muestra el contenido del archivo reporte.huf \n\t\t"
+         << "en pantalla; con un argumento muestra el contenido del archivo\n\t\t" 
+         << "dado en el argumento; con dos argumentos no muestra en pantalla\n\t\t" 
+         << "sino que guarda la salida descomprimida en este archivo txt."
+         << endl;
 
     pausarPantalla();
 }
