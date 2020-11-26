@@ -234,11 +234,22 @@ bool modifica(string linea, string ruta)
 {
     ofstream out_file;
 
-
     // Escribir el archivo
-    out_file.open(ruta, ios::app); 
-    out_file << linea << endl;            
-    out_file.close();                      
+    out_file.open(ruta, ios::app);
+    out_file << linea << endl;
+    out_file.close();
 
     return true;
+}
+
+void guardarLinea(string linea, string ruta)
+{
+    ofstream f(ruta, ios::app);
+    if (f.is_open())
+    {
+        f << linea << endl;
+    }
+    else
+        cerr << "Error de apertura del archivo." << endl;
+    f.close();
 }

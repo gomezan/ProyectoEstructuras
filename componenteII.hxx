@@ -13,10 +13,9 @@
 #define CHUNK 200
 #define DATA 10
 
-vector<string> disponibilidad(string comando)
+vector<string> disponibilidad(string comando, string opc)
 {
     //Declaración de variables
-    string opc;
     int cont;
     vector<string> datos;
     vector<string> retorna;
@@ -45,13 +44,6 @@ vector<string> disponibilidad(string comando)
         pausarPantalla();
         return retorna;
     }
-
-    do
-    {
-        cout << "Descargando información: "
-        << "Si esta usando la funcion de disponibilidad pulse \"s\" de lo contrario \"n\"" << endl;
-        cin >> opc;
-    } while (opc != "s" && opc != "n");
 
     if (opc == "s")
     {
@@ -177,7 +169,7 @@ void reserva(string comando, string agen)
     }
 
     comando2 = datos.at(0) + " " + datos.at(1) + " " + datos.at(2);
-    vector<string> disponibles = disponibilidad(comando2);
+    vector<string> disponibles = disponibilidad(comando2, "n");
 
     archReservas = abrirArchivoReserva("reservas.dat");
     archViajes = abrirArchivoViaje("viajes.dat");
@@ -209,7 +201,9 @@ void reserva(string comando, string agen)
                                 archReservas.at(k).getCodeRoute() == archViajes.at(l).getCodeRoute())
                             {
                                 sillas[archReservas.at(k).getChairNumber()] = false;
-                            } else {
+                            }
+                            else
+                            {
                                 sillas[archReservas.at(k).getChairNumber()] = true;
                             }
                         }
@@ -234,7 +228,7 @@ void reserva(string comando, string agen)
 
                     while (true)
                     {
-                        cout << "\n\nEscoja una silla: " ;
+                        cout << "\n\nEscoja una silla: ";
                         cin >> sill;
 
                         if (sillas[stoi(sill)])
@@ -278,7 +272,7 @@ void reserva(string comando, string agen)
     }
 }
 
-void reporte_ventas(string comando)
+void reporte_ventas(string comando, int call)
 {
     string fechaInicio, fechaFin;
     vector<string> datos = split(comando, " ");
@@ -305,7 +299,8 @@ void reporte_ventas(string comando)
         fechaInicio = datos.at(1);
         fechaFin = datos.at(2);
     }
-    cout << "Criterio de busqueda: " << fechaInicio << " hasta " << fechaFin << endl << endl;
+    cout << "Criterio de busqueda: " << fechaInicio << " hasta " << fechaFin << endl
+         << endl;
 
     string anioI, mesI, diaI, anioF, mesF, diaF;
 
@@ -377,11 +372,7 @@ void reporte_ventas(string comando)
         pausarPantalla();
         return;
     }
-    else
-    {
-        printf("||%5s %s %5s||\n", "", "REPORTE", "");
-        cout << endl;
-    }
+
     double totalReservas = 0;
     double totalCambios = 0;
     double totalCancela = 0;
@@ -395,20 +386,57 @@ void reporte_ventas(string comando)
         if (reservas.at(i).getPassenger().find("-C") != std::string::npos)
         {
             totalCambios += (reservas.at(i).getChairCost());
-            cant ++;
+            cant++;
         }
 
         if (reservas.at(i).getCodeTravel() == "VI000")
         {
             totalCancela += reservas.at(i).getChairCost();
-            cantC ++;
+            cantC++;
         }
     }
 
-    cout << "Total vendido: " << totalReservas << endl;
-    cout << "Cambios realizados: " << cant << "\n Con total de: " << totalCambios << endl;
-    cout << "Cancelaciones realizadas: " << cantC << "\n Con total de: " << totalCancela << endl << endl;
-    pausarPantalla();
+    if (call == 1)
+    {
+        printf("||%5s %s %5s||\n", "", "REPORTE", "");
+        cout << endl;
+        cout << "Total vendido: " << totalReservas << endl;
+        cout << "Cambios realizados: " << cant << "\n Con total de: " << totalCambios << endl;
+        cout << "Cancelaciones realizadas: " << cantC << "\n Con total de: " << totalCancela << endl
+             << endl;
+        pausarPantalla();
+        return;
+    }
+    else
+    {
+        remove(huff);
+        printf("||%5s %s %5s||\n", "", "COMPRIMIR", "");
+        string res;
+
+        tablahuf prueba; //creo la tabla
+
+        prueba.actualizarTabla("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789| :");
+
+        arbolBinario p;
+        p.crearArbolHuff(prueba); //creo el arbol
+                                  //pintarArbol(p.raiz);    //imprime el arbol
+
+        cout << "Generando compresion de Huffman..." << endl;
+        res = p.traductorAHuffman("|  REPORTE  |");
+        guardarLinea(res, huff);
+        res = p.traductorAHuffman("Total vendido: " + to_string((int)totalReservas));
+        guardarLinea(res, huff);
+        res = p.traductorAHuffman("Cambios realizados: " + to_string((int)cant));
+        guardarLinea(res, huff);
+        res = p.traductorAHuffman("Con total de: " + to_string((int)totalCambios));
+        guardarLinea(res, huff);
+        res = p.traductorAHuffman("Cancelaciones realizadas: " + to_string((int)cantC));
+        guardarLinea(res, huff);
+        res = p.traductorAHuffman("Con total de: " + to_string((int)totalCancela));
+        guardarLinea(res, huff);
+
+        cout << "... Proceso terminado\n" << endl;
+    }
 }
 
 void cancelar(string comando)
@@ -479,7 +507,7 @@ void cancelar(string comando)
 
             if (valorReservas.at(2) == auxRutas.getCodeRoute())
             {
-                vector<string> resultados = disponibilidad("disponibilidad " + auxRutas.getCityOrg() + " " + auxRutas.getCityDst());
+                vector<string> resultados = disponibilidad("disponibilidad " + auxRutas.getCityOrg() + " " + auxRutas.getCityDst(), "n");
 
                 for (int i = 0; i < resultados.size(); i++)
                 {
@@ -596,6 +624,5 @@ void cambiar(string comando, string agen)
     rename("reservastemp.dat", "reservas.dat");
 
     cout << "El archivo reservas.dat ha sido modificado correctamente" << endl;
-
     pausarPantalla();
 }

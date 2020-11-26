@@ -12,6 +12,10 @@
  * y venta de tiquetes, asi como tambien reportes entre otros.
  */
 
+/*
+    g++ -o prueba transporte.cpp -lreadline
+*/
+
 #include "principal.h"
 #include <algorithm>
 #include <iostream>
@@ -145,7 +149,7 @@ int main(int argc, char **argv)
 
                 if (cmd.find("disponibilidad") != std::string::npos)
                 {
-                    vector<string> datos = disponibilidad(comando);
+                    vector<string> datos = disponibilidad(comando, "s");
                     for (int i = 0; i < datos.size(); i++)
                     {
                         cout << datos.at(i) << endl;
@@ -157,7 +161,7 @@ int main(int argc, char **argv)
                 }
                 if (cmd.find("reporte_ventas") != std::string::npos)
                 {
-                    reporte_ventas(comando);
+                    reporte_ventas(comando, 1);
                 }
                 if (cmd.find("cancelar") != std::string::npos)
                 {
@@ -175,7 +179,7 @@ int main(int argc, char **argv)
                     recomendar(comando);
                 }
 
-                if (cmd.find("comprimir") != std::string::npos)
+                if (cmd == "comprimir")
                 {
                     comprimir(comando);
                 }

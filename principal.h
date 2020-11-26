@@ -23,6 +23,8 @@ using namespace std;
 #include <time.h>
 #include <vector>
 
+#define huff "reporte.huf"
+
 void ayuda();
 void borrarPantalla();
 void pausarPantalla();
@@ -32,6 +34,8 @@ vector<Viaje> abrirArchivoViaje(string ruta);
 vector<Bus> abrirArchivoBus(string ruta);
 vector<Reserva> abrirArchivoReserva(string ruta);
 vector<Ruta> abrirArchivoRuta(string ruta);
+bool modifica(string linea, string ruta);
+void guardarLinea(string linea, string ruta);
 
 
 // COMPONENTE I
@@ -45,9 +49,9 @@ void imprimir(string ruta, string tipo);
 
 // COMPONENTE II
 
-vector<string> disponibilidad(string comando);
+vector<string> disponibilidad(string comando, string opc);
 void reserva(string comando, string agencia);
-void reporte_ventas(string comando);
+void reporte_ventas(string comando, int call);
 void cancelar(string comando);
 void cambiar(string comando, string agen);
 
