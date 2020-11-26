@@ -30,26 +30,29 @@ void descomprimir(string comando)
     printf("||%5s %s %5s||\n", "", "DESCOMPRIMIR", "");
 
     vector<string> datos = split(comando, " ");
-    string s, linea;
+    string s, linea, ruta;
 
     tablahuf prueba; //creo la tabla
-
-    if (datos.size() != 3)
-    {
-        cout << "Parametros incorrectos" << endl;
-        cout << "$ reserva  <archivo-entrada.huf> <archivo-salida.txt>\n"
-             << endl;
-        pausarPantalla();
-        return;
-    }
 
     prueba.actualizarTabla("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789| :");
 
     arbolBinario p;
     p.crearArbolHuff(prueba); //creo el arbol
                               //pintarArbol(p.raiz);    //imprime el arbol
-    ifstream f(datos.at(1));
-    cout << "Reporte recuperado: \n" << endl;
+
+    if (datos.size() == 1)
+    {
+        ruta = huff;
+    }
+    else
+    {
+        ruta = datos.at(1);
+    }
+
+    ifstream f(ruta);
+
+    cout << "Reporte recuperado: \n"
+         << endl;
     if (f.is_open())
     {
         getline(f, s);
@@ -57,8 +60,15 @@ void descomprimir(string comando)
         while (!f.eof())
         {
             linea = p.traductorACaracter(s);
-            cout << linea << endl;
-            guardarLinea(linea, datos.at(2));
+
+            if (datos.size() == 3)
+            {
+                guardarLinea(linea, datos.at(2));
+            }
+            else
+            {
+                cout << linea << endl;
+            }
 
             getline(f, s);
         }
@@ -66,12 +76,19 @@ void descomprimir(string comando)
     else
     {
         cerr << "Error de apertura del archivo." << endl;
-        if (datos.at(1) != huff)
-        {
-            cout << "La ruta de entrada es diferente al nombre guardado en compresión" << endl;
-        }
+        if (datos.size() > 2)
+            if (datos.at(1) != huff)
+            {
+                cout << "La ruta de entrada es diferente al nombre guardado en compresión" << endl;
+            }
     }
-    cout << "\nGuardando el reporte en la ruta: " << datos.at(2) << endl << endl;
+    if (datos.size() == 3)
+        if (datos.size() == 3)
+        {
+            cout << "\nGuardando el reporte en la ruta: " << datos.at(2) << endl
+                 << endl;
+        }
+    cout << endl;
     f.close();
     pausarPantalla();
 }
